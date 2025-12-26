@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special for Realiana ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <audio id="myAudio" loop>
+        <source src="Nadhif Basalamah - Bergema Sampai Selamanya (Official Video Lyric) (1).mp3" type="audio/mpeg">
+    </audio>
+
+    <main id="app-container">
+        <!-- Screen 0: Loading Screen -->
+        <div id="screen-0" class="loading-overlay">
+            <div class="loader-content">
+                <div class="heart-loader">❤️</div>
+                <h2 class="loading-text">Menyiapkan kejutan buat rea...</h2>
+            </div>
+        </div>
+
+        <!-- Screen Valentine: Muncul otomatis setelah loading selesai -->
+        <section id="screen-valentine" class="screen active">
+            <div class="card" id="ask-card">
+                <div id="container-gif">
+                    <img src="https://media.tenor.com/kz-n0A4AAAC/kiss-kisses.gif" style="width: 150px; border-radius: 15px; margin-bottom: 10px;">
+                </div>
+                <h2 class="section-title">Kamu sayang atuuu ndaa?? ❤️</h2>
+                <p id="no-message" style="min-height: 1.5em; color: #d63384; font-weight: 600; margin-bottom: 10px;"></p>
+
+                <div id="btn-container" style="display: flex; gap: 15px; justify-content: center; align-items: center; margin-top: 20px; min-height: 120px;">
+                    <button id="btn-yes" class="btn-main" onclick="goToWelcome()">YES</button>
+                    <button id="btn-no" class="btn-secondary" onclick="handleNoClick()" style="margin-left: 0;">NO</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 1: Welcome -->
+        <section id="screen-1" class="screen">
+            <div class="card">
+                <h1 class="section-title" style="font-family: 'Pacifico'; font-size: 2.5rem;">Hi My Love ✨</h1>
+                <p>Halo Rea, Aku ada kejutan kecil buat menutup tahun 2025 ini. <br>Tapi main dulu yuk!</p>
+                <button class="btn-main" onclick="showScreen(2)">Start Game 🚀</button>
+            </div>
+        </section>
+
+        <!-- Screen 2: Memory Game -->
+        <section id="screen-2" class="screen">
+            <div class="card">
+                <h2 class="section-title">Memory Match</h2>
+                <p>Cari pasangan emojinya sampai ketemu semua ya!</p>
+                <div class="memory-grid" id="game-grid"></div>
+            </div>
+        </section>
+
+        <!-- Screen 3: Tebak Warna -->
+        <section id="screen-3" class="screen">
+            <div class="card">
+                <h2 class="section-title">Tebak Warna 🎨</h2>
+                <p>Warna apa yang selalu bikin aku inget sama kamu?</p>
+                <input type="text" id="color-input" placeholder="Jawab sini..." class="input-field">
+                <p id="color-hint" style="color:red; font-size:0.8rem;"></p>
+                <button class="btn-main" onclick="checkColorGame()">Kirim</button>
+            </div>
+        </section>
+
+        <!-- Screen 4: Tebak Lagu -->
+        <section id="screen-4" class="screen">
+            <div class="card">
+                <h2 class="section-title">Tebak Lagu 🎵</h2>
+                <p>Lagu apa yang jadi favoritku? <br><small style="color:#d63384;">(Clue: Ada di playlist Spotify kita)</small></p>
+                <input type="text" id="song-input" placeholder="Judul lagu..." class="input-field">
+                <p id="song-hint" style="color:red; font-size:0.8rem;"></p>
+                <button class="btn-main" onclick="checkSongGame()">Cek Jawaban</button>
+            </div>
+        </section>
+
+        <!-- Screen Date -->
+        <section id="screen-date" class="screen">
+            <div class="card">
+                <h2 class="section-title">Special Date ❤️</h2>
+                <p>Kapan kita pertama kali ketemu? <br><small>(contoh Format: 1 januari 2001)</small></p>
+                <input type="text" id="date-input" placeholder="Tanggal..." class="input-field">
+                <p id="date-hint" style="color:red; font-size:0.8rem;"></p>
+                <button class="btn-main" onclick="checkDateGame()">Kirim</button>
+            </div>
+        </section>
+
+        <!-- Screen Secret: Pesan Rahasia + Gemini AI Feature -->
+        <section id="screen-secret" class="screen">
+            <div class="card">
+                <h2 class="section-title">Pesan Rahasia 💌</h2>
+                <div id="secret-content" class="secret-msg"></div>
+                
+                <!-- FITUR GEMINI AI: PESAN AJAIB -->
+                <div class="ai-section" style="margin: 15px 0; border-top: 1px dashed #ffb3c1; padding-top: 15px;">
+                    <p style="font-size: 0.9rem; margin-bottom: 5px;">Butuh semangat tambahan?</p>
+                    <button id="btn-ai-generate" class="btn-ai" onclick="generateAIMessage()">
+                        ✨ Minta Pesan Ajaib AI
+                    </button>
+                    <div id="ai-loading" class="hidden" style="margin-top: 10px;">
+                        <span class="ai-spinner">✨</span> Meracik kata-kata...
+                    </div>
+                    <div id="ai-result" class="hidden secret-msg" style="color: #bf0603; font-weight: bold;"></div>
+                </div>
+
+                <div style="display: flex; justify-content: center; margin-top:10px;">
+                    <button class="btn-main" id="btn-secret-next">Lanjut</button>
+                    <button class="btn-secondary" onclick="showTroll()">Kembali</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 5: Why You -->
+        <section id="screen-5" class="screen">
+            <div class="card">
+                <h2 class="section-title">Why You?</h2>
+                <div class="reasons-list">
+                    <div class="reason-item" onclick="revealReason(this, 'Senyum kamu itu obat paling ampuh buat aku.')">Senyummu ✨</div>
+                    <div class="reason-item" onclick="revealReason(this, 'Kamu selalu ada dan percaya sama aku.')">Kepercayaanmu 🌹</div>
+                    <div class="reason-item" onclick="revealReason(this, 'Aku Merasa Nyaman banget kalo lagi sama kamu.')">Nyamanmu 🧸</div>
+                </div>
+                <button id="btn-to-letter" class="btn-main hidden" onclick="showScreen(6)">Buka Surat Terakhir 💌</button>
+            </div>
+        </section>
+
+        <!-- Screen 6: Final Letter -->
+        <section id="screen-6" class="screen">
+            <div id="photo-gallery"></div> 
+        
+            <div class="card letter-card" id="final-card">
+                <canvas id="fireworksCanvas"></canvas>
+                
+                <a class="letter-content-wrapper">
+                    <h2 class="section-title" id="final-title">Dear Sayangku...</h2>
+                    <div id="typewriter-text" style="font-size: 0.95rem; margin-bottom: 20px;"></div>
+
+                    <div id="countdown-container" class="hidden" style="margin: 20px 0; padding: 10px; border-radius: 15px; background: rgba(255, 255, 255, 0.1);">
+                        <p style="color: #ffb3c1; margin-bottom: 8px; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Menuju 2026:</p>
+                        <div id="timer" style="font-weight: bold; font-size: 1.3rem; letter-spacing: 2px; font-family: 'monospace';"></div>
+                    </div>
+                    <button id="fireworks-btn" class="btn-main" onclick="startCelebration()">Hidupkan Kembang Api ✨</button>
+                    <a href="newyear.html">
+                    <button id="btn-magic-particle" class="btn-ai hidden" onclick="startMagic()">
+                        ✨ Magic Particles
+                    </button>
+                </a>
+                    <footer class="footer-text hidden" id="final-footer" style="margin-top: 20px; font-weight: bold;">Selamat Tahun Baru 2026! ❤️</footer>
+                </div>
+            </a>
+            </div>
+        </section>
+
+        <div id="success-modal" class="modal hidden">
+            <div class="modal-content card">
+                <div style="font-size: 3rem;">😘</div>
+                <h3 style="color: var(--primary-color);">Pinter banget sih!</h3>
+                <p>Yeayy bby kamu bener.</p>
+                <button id="modal-next-btn" class="btn-main">Lanjut</button>
+            </div>
+        </div>
+
+        <div id="troll-modal" class="modal hidden">
+            <div class="modal-content card">
+                <div style="font-size: 3rem;">😤</div>
+                <h3>Dihh gitu kamu yaa hmph!</h3>
+                <button class="btn-main" onclick="document.getElementById('troll-modal').classList.add('hidden')">Maaf sayang 🥺</button>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
